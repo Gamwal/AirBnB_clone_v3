@@ -76,4 +76,18 @@ class DBStorage:
         self.__session.remove()
 
     def get(self, cls, id):
+        """A method to retrieve one object
         
+        Args:
+            cls: the class of the object
+            id: string representing the object ID
+
+        Returns:
+            the object based on the class and its ID,
+            or None if not found
+        """
+        try:
+            if cls in classes.keys():
+                return classes.get[cls](id)
+        except Exception as e:
+            return None
