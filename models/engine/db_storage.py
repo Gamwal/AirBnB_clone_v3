@@ -16,12 +16,12 @@ import sqlalchemy
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
 
-classes = {"Amenity": Amenity, "City": City,
-           "Place": Place, "Review": Review, "State": State, "User": User}
+classes = {"Amenity": Amenity, "City": City, "Place": Place,
+           "Review": Review, "State": State, "User": User}
 
 
 class DBStorage:
-    """interaacts with the MySQL database"""
+    """interacts with the MySQL database"""
     __engine = None
     __session = None
 
@@ -49,7 +49,7 @@ class DBStorage:
                 for obj in objs:
                     key = obj.__class__.__name__ + '.' + obj.id
                     new_dict[key] = obj
-        return (new_dict)
+        return new_dict
 
     def new(self, obj):
         """add the object to the current database session"""
@@ -75,22 +75,20 @@ class DBStorage:
         """call remove() method on the private session attribute"""
         self.__session.remove()
 
-   
     def get(self, cls, id):
-    	"""
+        """
         Returns the object based on the class name and its ID, or
         None if not found
         """
-    	if cls not in classes.values():
+        if cls not in classes.values():
             return None
 
         all_cls = models.storage.all(cls)
         for value in all_cls.values():
-            if (value.id == id):
+            if value.id == id:
                 return value
-	
-	return None
-    
+        return None
+
     def count(self, cls=None):
         """
         count the number of objects in storage
@@ -105,4 +103,3 @@ class DBStorage:
             count = len(models.storage.all(cls).values())
 
         return count  
-
