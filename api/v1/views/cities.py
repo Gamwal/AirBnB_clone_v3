@@ -1,5 +1,7 @@
 #!/usr/bin/python3
-
+"""
+Cities view module to handle RESTful API actions for State objects.
+"""
 from flask import jsonify, abort, request
 from api.v1.views import app_views
 from models import storage
