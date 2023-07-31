@@ -2,6 +2,7 @@
 """ """
 
 from flask import Flask, jsonify
+from flask_cors import CORS
 from models import storage
 from api.v1.views import app_views
 import os
@@ -27,6 +28,7 @@ def teardown(exception):
 def not_found(error):
     return jsonify({"error": "Not found"}), 404
 
+cors = CORS(app, resources={r"/api/*": {"origins": "0.0.0.0"}})
 
 if __name__ == "__main__":
     host = os.environ.get('HBNB_API_HOST', '0.0.0.0')
