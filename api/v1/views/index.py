@@ -7,6 +7,13 @@ from models import storage
 
 
 @app_views.route('/status', methods=['GET'])
+def status():
+    status_data = {
+            'status': 'OK'
+            }
+    return jsonify(status_data)
+
+@app_views.route('/stats', methods=['GET'])
 def stats():
     stats = {
             "amenities": storage.count("Amenity"),
