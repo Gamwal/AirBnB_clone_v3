@@ -1,13 +1,10 @@
 #!/usr/bin/python3
-"""
-Cities view module to handle RESTful API actions for State objects.
-"""
+""" objects that handles all default RestFul API actions for cities """
 from flask import jsonify, abort, request
 from api.v1.views import app_views
 from models import storage
 from models.state import State
 from models.city import City
-
 
 
 @app_views.route('/states/<state_id>/cities', methods=['GET'], strict_slashes=False)
@@ -24,7 +21,7 @@ def get_cities_by_state(state_id):
     state = storage.get(State, state_id)
     if state is None:
         abort(404)
-    cities = [cities.to_dict() for city in state.cities]
+    cities = [city.to_dict() for city in state.cities]
     return jsonify(cities)
 
 
@@ -110,3 +107,4 @@ def update_city(city_id):
             setattr(city, key, value)
     city.save()
     return jsonify(city.to_dict()), 200
+
